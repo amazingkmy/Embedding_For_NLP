@@ -1,0 +1,21 @@
+2013년 구글 연구팀이 발표한 기법.
+Efficient Estimation of Word Representations in Vector Space 논문 Mikolov 2013a
+Distributed Representations of Words and Phrase and their Compositionality 논문 Mikolov 2013b
+
+2013a는 Skip-Gram과 CBOW의 이야기
+2013b는 2013a에 제시된 모델을 기반으로 학습 최적화 방법을 제시항 Negative Sampling 기법을 제시
+
+CBOW는 주변 문맥 단어로 해당 단어를 유추
+Skip-gram은 해당 단어로 주변 문맥 단어를 유추
+
+Negative Sampling은 대상 단어와 주변 단어 쌍이 주어졌을 때 그 쌍이 Positive인지 Nagative인지 이진 분류로 학습하는 것.
+횟수는 작업자가 조정 가능하며 그 횟수를 k로 쓰고 Positive 데이터까지 합쳐 총 k+1회 계산한다.
+2013b에 따르면 negative sampling의 횟수는 작은 데이터 5~20, 큰 데이터 2~5로 놓고 계산하는 것이 성능이 좋았다고 함.
+
+Negative 데이터를 뽑는 데 2개의 확률 수식이 사용됨.
+1. Negative sample probability.  
+.  P_negative(w_i)=frat{u(w_i)^3/4}{\sum\j=0\^n\U(w_j)^3/4}
+2. subsampling
+.  P_subsampling(w_i)=1-제곱근(frat{t}{f(w_t)})
+
+1번은 자주 등장하지 않는 단어들에 대해 뽑힐 확률이 증가하는 것이고, 2번은 자주 등장하는 단어에 대해 확률을 낮춰주는 확률.
